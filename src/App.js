@@ -11,12 +11,13 @@ class App extends Component {
   }
 
   render() {
-    const { questions } = this.props;
-    console.log('getQuestions', questions);
+    console.log(this.props);
+    const { questions, setScore, score } = this.props;
     return (
       <div className="App">
+        <div>SCORE: {score}</div>
         <header className="App-header">
-          {questions.length > 0 && <Question {...questions[0]} />}
+          {questions.length > 0 && <Question {...questions[0]} setScore={setScore} />}
         </header>
       </div>
     );
@@ -33,6 +34,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getData: ducks.actions.getData,
+  setScore: ducks.actions.setScore,
 };
 
 export default connect(

@@ -27,9 +27,9 @@ const defaultState = {
 // selectors
 const root = state => (state ? state : defaultState);
 export const selectors = {
-  questions: state => root(state).questions || defaultState,
-  outcomes: state => root(state).outcomes || defaultState,
-  score: state => root(state).score || defaultState,
+  questions: state => root(state).questions || defaultState.questions,
+  outcomes: state => root(state).outcomes || defaultState.outcomes,
+  score: state => root(state).score || defaultState.score,
 };
 
 // reducer

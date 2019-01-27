@@ -3,14 +3,33 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
-const Question = ({ question_text }) => {
-  console.log('question_text', question_text);
+const isOutcome = nextList => nextList.some(next => next.keys() === 'outcome');
+
+const getNextQuestion = (nextList, answerId, outcomeList, outcomeId) => {
+  let nextQuestion = '';
+  if (nextList.length > 1 && !isOutcome(nextList)) {
+    // Has multiple choices, like first question
+    nextQuestion = nextList.filter(alternative => alternative.answered === answerId);
+  } else if (isOutcome(nextList)) {
+    // Is an outcome
+    nextQuestion = outcomeList.filter(outcome => outcome.id === outcomeId);
+  } else {
+    // other questions
+    nextQuestion = nextList[0].next_question;
+  }
+  return nextQuestion;
+};
+
+const Question = ({ id, question_text, answers, next, setScore }) => {
   return (
-    <>
+    <div>
       <div>{question_text}</div>
-      <button type="button">Yes</button>
-      <button type="button">No</button>
-    </>
+      <div>
+        <button onClick={() => setScore(answers[0].score)}>{answers[0].label}</button>
+        <button onClick={() => setScore(answers[1].score)}>{answers[1].label}</button>
+      </div>
+      <button>Next</button>
+    </div>
   );
 };
 
