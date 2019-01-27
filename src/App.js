@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+
+import Question from './components/Question';
+import * as ducks from './ducks';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getData();
+  }
+
   render() {
+    const { questions } = this.props;
+    console.log('getQuestions', questions);
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          {questions.length > 0 && <Question {...questions[0]} />}
         </header>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    questions: ducks.selectors.questions(state),
+    outcomes: ducks.selectors.outcomes(state),
+    score: ducks.selectors.score(state),
+  };
+};
+
+const mapDispatchToProps = {
+  getData: ducks.actions.getData,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
