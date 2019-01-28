@@ -3,46 +3,77 @@ import { connect } from 'react-redux';
 import api from './api/response.json';
 
 import Question from './components/Question';
-import * as ducks from './ducks';
+import Verdict from './components/Verdict';
+import ducks from './ducks';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    var response = this.props.getData(api);
-    this.props.setQuestion(response.payload.questions[0]);
-    this.props.setInitDone();
+    const { getData, setQuestion, setInitDone } = this.props;
+    const response = getData(api);
+    setQuestion(response.payload.questions[0]);
+    setInitDone();
   }
 
   render() {
-    const { score, currentQuestion, initDone, questions, setScore, setQuestion } = this.props;
+    const {
+      score,
+      currentQuestion,
+      initDone,
+      questions,
+      setScore,
+      setQuestion,
+      setAnswer,
+      selectedAnswer,
+      resetAnswer,
+      verdict,
+      setVerdict,
+      resetVerdict,
+      outcomes,
+      resetQuestion
+    } = this.props;
+    let displayed;
     if (!initDone) {
-      return <>loading</>;
+      displayed = <>Loading...</>;
+    } else if (Object.keys(verdict).length > 0) {
+      displayed = <Verdict verdict={verdict} />;
     } else {
-      return (
-        <div className="App">
-          <div>SCORE: {score}</div>
-          <header className="App-header">
-            <Question
-              {...currentQuestion}
-              questions={questions}
-              totalScore={score}
-              setScore={setScore}
-              setQuestion={setQuestion}
-            />
-          </header>
-        </div>
+      displayed = (
+        <Question
+          {...currentQuestion}
+          questions={questions}
+          totalScore={score}
+          setScore={setScore}
+          setQuestion={setQuestion}
+          setAnswer={setAnswer}
+          selectedAnswer={selectedAnswer}
+          resetAnswer={resetAnswer}
+          verdict={verdict}
+          setVerdict={setVerdict}
+          resetVerdict={resetVerdict}
+          outcomes={outcomes}
+          resetQuestion={resetQuestion}
+        />
       );
     }
+    return (
+      <div className='App'>
+        <div>SCORE: {score}</div>
+        <header className='App-header'>{displayed}</header>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    questions: ducks.selectors.questions(state),
-    outcomes: ducks.selectors.outcomes(state),
-    score: ducks.selectors.score(state),
-    currentQuestion: ducks.selectors.currentQuestion(state),
-    initDone: ducks.selectors.initDone(state),
+    questions: ducks.selectors.getQuestions(state),
+    outcomes: ducks.selectors.getOutcomes(state),
+    score: ducks.selectors.getScore(state),
+    currentQuestion: ducks.selectors.getCurrentQuestion(state),
+    initDone: ducks.selectors.getInitDone(state),
+    selectedAnswer: ducks.selectors.getSelectedAnswer(state),
+    verdict: ducks.selectors.getVerdict(state)
   };
 };
 
@@ -51,9 +82,14 @@ const mapDispatchToProps = {
   setScore: ducks.actions.setScore,
   setQuestion: ducks.actions.setQuestion,
   setInitDone: ducks.actions.setInitDone,
+  setAnswer: ducks.actions.setAnswer,
+  resetAnswer: ducks.actions.resetAnswer,
+  setVerdict: ducks.actions.setVerdict,
+  resetVerdict: ducks.actions.resetVerdict,
+  resetQuestion: ducks.actions.resetQuestion
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(App);

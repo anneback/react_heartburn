@@ -1,34 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import * as ducks from '../ducks';
 
 import './style.css';
 import NextButton from './NextButton';
 class Question extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 0,
-      selectedAnswerId: null,
-    };
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.id !== nextProps.id;
-  }
+  getButton = (
+    next,
+    totalScore,
+    score,
+    questions,
+    setScore,
+    setQuestion,
+    selectedAnswer,
+    resetAnswer,
+    verdict,
+    setVerdict,
+    outcomes,
+    resetQuestion
+  ) => {
+    if (Object.keys(verdict).length > 0) {
+      return <button type='button'>Book meeting</button>;
+    }
+    return (
+      <NextButton
+        next={next}
+        totalScore={totalScore}
+        score={score}
+        questions={questions}
+        setScore={setScore}
+        setQuestion={setQuestion}
+        selectedAnswer={selectedAnswer}
+        resetAnswer={resetAnswer}
+        verdict={verdict}
+        setVerdict={setVerdict}
+        outcomes={outcomes}
+        resetQuestion={resetQuestion}
+      />
+    );
+  };
 
   render() {
     const {
-      id,
       question_text,
       answers,
       next,
+      verdict,
       questions,
       totalScore,
+      setAnswer,
       setScore,
       setQuestion,
+      selectedAnswer,
+      resetAnswer,
+      setVerdict,
+      resetVerdict,
+      outcomes,
+      resetQuestion
     } = this.props;
     return (
       <div>
@@ -36,61 +63,54 @@ class Question extends React.Component {
         <div>
           {answers[0].label}
           <input
-            type="radio"
-            name="answer"
-            onClick={() =>
-              this.setState({
-                selectedAnswerId: answers[0].id,
-                score: answers[0].score,
-              })
-            }
+            type='radio'
+            name='answer'
+            onClick={() => setAnswer(answers[0])}
           />
           {answers[1].label}
           <input
-            type="radio"
-            name="answer"
-            onClick={() =>
-              this.setState({
-                selectedAnswerId: answers[1].id,
-                score: answers[1].score,
-              })
-            }
+            type='radio'
+            name='answer'
+            onClick={() => setAnswer(answers[1])}
           />
         </div>
-
-        <NextButton
-          selectedAnswerId={this.state.selectedAnswerId}
-          next={next}
-          totalScore={totalScore}
-          score={this.state.score}
-          questions={questions}
-          setScore={setScore}
-          setQuestion={setQuestion}
-        />
+        {this.getButton(
+          next,
+          totalScore,
+          selectedAnswer.score,
+          questions,
+          setScore,
+          setQuestion,
+          selectedAnswer,
+          resetAnswer,
+          verdict,
+          setVerdict,
+          outcomes,
+          resetQuestion
+        )}
       </div>
     );
   }
 }
-
-const mapDispatchToProps = {
-  setScore: ducks.actions.setScore,
-  setQuestion: ducks.actions.setQuestion,
-};
 
 Question.propTypes = {
   id: PropTypes.string.isRequired,
   question_text: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.shape()),
   next: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  outcomes: PropTypes.arrayOf(PropTypes.shape()),
+  outcomes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  selectedAnswer: PropTypes.shape().isRequired,
+  setScore: PropTypes.func.isRequired,
+  setQuestion: PropTypes.func.isRequired,
+  resetAnswer: PropTypes.func.isRequired,
+  verdict: PropTypes.shape().isRequired,
+  setVerdict: PropTypes.func.isRequired,
+  resetVerdict: PropTypes.func.isRequired,
+  resetQuestion: PropTypes.func.isRequired
 };
 
 Question.defaultProps = {
-  answers: [],
-  outcomes: [],
+  answers: []
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Question);
+export default Question;
