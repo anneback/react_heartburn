@@ -16,13 +16,13 @@ export const types = {
 };
 
 export const defaultState = {
-  currentQuestion: {},
+  currentQuestion: null,
   questions: [],
   outcomes: [],
   score: 0,
   initDone: false,
-  answer: {},
-  verdict: {}
+  answer: null,
+  verdict: null
 };
 
 // reducer

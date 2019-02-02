@@ -17,4 +17,8 @@ const Verdict = ({ verdict }) => (
   </div>
 );
 
+Verdict.propTypes = {
+  verdict: PropTypes.shape().isRequired
+};
+
 export default Verdict;

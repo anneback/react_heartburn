@@ -18,9 +18,8 @@ const getOutcomeFromList = (outcomes, outcomeId) =>
 const nextOnClick = (
   questions,
   nextList,
-  selectedAnswerId,
+  selectedAnswer,
   totalScore,
-  score,
   setScore,
   setQuestion,
   resetAnswer,
@@ -28,6 +27,8 @@ const nextOnClick = (
   outcomesList,
   resetQuestion
 ) => {
+  const { id: selectedAnswerId, score } = selectedAnswer;
+  console.log('nextOnClick', selectedAnswer);
   if (nextList.length > 1 && isNextOutcome(nextList)) {
     let outcomeQuestion;
     // Next step is an outcome
@@ -66,45 +67,42 @@ const nextOnClick = (
     setQuestion(nextQuestion);
   }
 };
-class NextButton extends React.Component {
-  render() {
-    const {
-      questions,
-      next,
-      totalScore,
-      selectedAnswer,
-      resetAnswer,
-      setScore,
-      setQuestion,
-      setVerdict,
-      outcomes,
-      resetQuestion
-    } = this.props;
-    return (
-      <button
-        type='button'
-        disabled={Object.keys(selectedAnswer).length < 1}
-        onClick={() =>
-          nextOnClick(
-            questions,
-            next,
-            selectedAnswer.id,
-            totalScore,
-            selectedAnswer.score,
-            setScore,
-            setQuestion,
-            resetAnswer,
-            setVerdict,
-            outcomes,
-            resetQuestion
-          )
-        }
-      >
-        Next
-      </button>
-    );
-  }
-}
+const NextButton = ({
+  questions,
+  next,
+  totalScore,
+  selectedAnswer,
+  resetAnswer,
+  setScore,
+  setQuestion,
+  setVerdict,
+  outcomes,
+  resetQuestion
+}) => {
+  console.log(selectedAnswer);
+  return (
+    <button
+      type='button'
+      disabled={selectedAnswer == null}
+      onClick={() =>
+        nextOnClick(
+          questions,
+          next,
+          selectedAnswer,
+          totalScore,
+          setScore,
+          setQuestion,
+          resetAnswer,
+          setVerdict,
+          outcomes,
+          resetQuestion
+        )
+      }
+    >
+      Next
+    </button>
+  );
+};
 
 NextButton.propTypes = {
   selectedAnswer: PropTypes.shape().isRequired,

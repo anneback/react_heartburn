@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import api from './api/response.json';
 
@@ -7,40 +7,27 @@ import Verdict from './components/Verdict';
 import ducks from './ducks';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   componentDidMount() {
     const { getData, setQuestion, setInitDone } = this.props;
-    const response = getData(api);
-    setQuestion(response.payload.questions[0]);
+    const response = getData(api).payload;
+    setQuestion(response.questions[0]);
     setInitDone();
   }
 
   render() {
-    const {
-      score,
-      currentQuestion,
-      initDone,
-      questions,
-      setScore,
-      setQuestion,
-      setAnswer,
-      selectedAnswer,
-      resetAnswer,
-      verdict,
-      setVerdict,
-      resetVerdict,
-      outcomes,
-      resetQuestion
-    } = this.props;
+    const { score, initDone, verdict } = this.props;
     let displayed;
     if (!initDone) {
       displayed = <>Loading...</>;
-    } else if (Object.keys(verdict).length > 0) {
+    } else if (verdict !== null) {
       displayed = <Verdict verdict={verdict} />;
     } else {
       displayed = (
         <Question
-          {...currentQuestion}
+          {...this.props}
+          //{...this.props}
+          /* {...currentQuestion}
           questions={questions}
           totalScore={score}
           setScore={setScore}
@@ -52,7 +39,7 @@ class App extends Component {
           setVerdict={setVerdict}
           resetVerdict={resetVerdict}
           outcomes={outcomes}
-          resetQuestion={resetQuestion}
+          resetQuestion={resetQuestion} */
         />
       );
     }
