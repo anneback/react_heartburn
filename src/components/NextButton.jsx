@@ -28,7 +28,6 @@ const nextOnClick = (
   resetQuestion
 ) => {
   const { id: selectedAnswerId, score } = selectedAnswer;
-  console.log('nextOnClick', selectedAnswer);
   if (nextList.length > 1 && isNextOutcome(nextList)) {
     let outcomeQuestion;
     // Next step is an outcome
@@ -79,7 +78,6 @@ const NextButton = ({
   outcomes,
   resetQuestion
 }) => {
-  console.log(selectedAnswer);
   return (
     <button
       type='button'
