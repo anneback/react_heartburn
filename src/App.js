@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import api from './api/response.json';
 
-import Question from './components/Question';
-import Verdict from './components/Verdict';
+import { Question, Verdict } from './components';
 import ducks from './ducks';
 import './App.css';
 

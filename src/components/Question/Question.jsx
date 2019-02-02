@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './style.css';
-import NextButton from './NextButton';
+import { NextButton } from '..';
 
 const Question = ({
   currentQuestion: { answers, question_text, next },
