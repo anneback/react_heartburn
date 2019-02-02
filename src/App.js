@@ -23,25 +23,7 @@ class App extends React.Component {
     } else if (verdict !== null) {
       displayed = <Verdict verdict={verdict} />;
     } else {
-      displayed = (
-        <Question
-          {...this.props}
-          //{...this.props}
-          /* {...currentQuestion}
-          questions={questions}
-          totalScore={score}
-          setScore={setScore}
-          setQuestion={setQuestion}
-          setAnswer={setAnswer}
-          selectedAnswer={selectedAnswer}
-          resetAnswer={resetAnswer}
-          verdict={verdict}
-          setVerdict={setVerdict}
-          resetVerdict={resetVerdict}
-          outcomes={outcomes}
-          resetQuestion={resetQuestion} */
-        />
-      );
+      displayed = <Question {...this.props} />;
     }
     return (
       <div className='App'>
