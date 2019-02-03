@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Verdict = ({ verdict, classes }) => (
+const Verdict = ({ verdict, setRefresh, classes }) => (
   <>
     <div className={classes.text}>{verdict.text}</div>
     {verdict.show_booking_button && (
@@ -13,14 +13,16 @@ const Verdict = ({ verdict, classes }) => (
         Book a meeting
       </button>
     )}
-    <button type='button' onClick={() => console.log('reset all')}>
+    <button type='button' onClick={() => setRefresh()}>
       Back to start screen
     </button>
   </>
 );
 
 Verdict.propTypes = {
-  verdict: PropTypes.shape().isRequired
+  verdict: PropTypes.shape().isRequired,
+  setRefresh: PropTypes.func.isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
 export default Verdict;

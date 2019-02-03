@@ -10,6 +10,7 @@ const getCurrentQuestion = state =>
 const getInitDone = state => root(state).initDone || defaultState.initDone;
 const getSelectedAnswer = state => root(state).answer || defaultState.answer;
 const getVerdict = state => root(state).verdict || defaultState.verdict;
+const getRefresh = state => root(state).refresh || defaultState.refresh;
 
 export default {
   getQuestions,
@@ -18,5 +19,6 @@ export default {
   getCurrentQuestion,
   getInitDone,
   getSelectedAnswer,
-  getVerdict
+  getVerdict,
+  getRefresh
 };

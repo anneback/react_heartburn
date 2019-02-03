@@ -11,8 +11,9 @@ export const types = {
   setAnswer: 'SET_ANSWER',
   setInitDone: 'SET_INIT_DONE',
   setVerdict: 'SET_VERDICT',
-  resetVerdict: 'RESET_VERDICT',
-  resetQuestion: 'RESET_QUESTION'
+  resetQuestion: 'RESET_QUESTION',
+  resetAll: 'RESET_ALL',
+  setRefresh: 'SET_REFRESH'
 };
 
 export const defaultState = {
@@ -22,7 +23,8 @@ export const defaultState = {
   score: 0,
   initDone: false,
   answer: null,
-  verdict: null
+  verdict: null,
+  refresh: false
 };
 
 // reducer
@@ -46,6 +48,10 @@ const rootReducer = (state = defaultState, { type, payload }) => {
       return { ...state, verdict: defaultState.verdict };
     case types.resetQuestion:
       return { ...state, verdict: defaultState.currentQuestion };
+    case types.setRefresh:
+      return { ...state, refresh: true };
+    case types.resetAll:
+      return defaultState;
     default:
       return state;
   }

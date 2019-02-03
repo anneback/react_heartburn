@@ -7,11 +7,23 @@ import ducks from './ducks';
 import './App.css';
 
 class App extends React.Component {
-  componentDidMount() {
+  init() {
     const { getData, setQuestion, setInitDone } = this.props;
     const response = getData(api).payload;
     setQuestion(response.questions[0]);
     setInitDone();
+  }
+
+  componentDidMount() {
+    this.init();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { refresh, resetAll } = this.props;
+    if (nextProps.refresh !== refresh) {
+      resetAll();
+      this.init();
+    }
   }
 
   render() {
@@ -41,7 +53,8 @@ const mapStateToProps = state => {
     currentQuestion: ducks.selectors.getCurrentQuestion(state),
     initDone: ducks.selectors.getInitDone(state),
     selectedAnswer: ducks.selectors.getSelectedAnswer(state),
-    verdict: ducks.selectors.getVerdict(state)
+    verdict: ducks.selectors.getVerdict(state),
+    refresh: ducks.selectors.getRefresh(state)
   };
 };
 
@@ -54,7 +67,8 @@ const mapDispatchToProps = {
   resetAnswer: ducks.actions.resetAnswer,
   setVerdict: ducks.actions.setVerdict,
   resetVerdict: ducks.actions.resetVerdict,
-  resetQuestion: ducks.actions.resetQuestion
+  resetQuestion: ducks.actions.resetQuestion,
+  resetAll: ducks.actions.resetAll
 };
 
 export default connect(

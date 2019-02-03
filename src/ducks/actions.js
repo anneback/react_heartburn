@@ -29,9 +29,13 @@ const setVerdict = payload => ({
   type: types.setVerdict,
   payload
 });
-const resetVerdict = () => ({
-  type: types.resetVerdict
+const setRefresh = () => ({
+  type: types.setRefresh
 });
+const resetAll = () => ({
+  type: types.resetAll
+});
+
 export default {
   getData,
   setScore,
@@ -40,6 +44,7 @@ export default {
   setQuestion,
   setInitDone,
   setVerdict,
-  resetVerdict,
-  resetQuestion
+  resetAll,
+  resetQuestion,
+  setRefresh
 };
