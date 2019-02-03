@@ -16,11 +16,12 @@ const Question = ({
   setVerdict,
   resetVerdict,
   outcomes,
-  resetQuestion
+  resetQuestion,
+  classes
 }) => {
   return (
     <div>
-      <div>{question_text}</div>
+      <div className={classes.text}>{question_text}</div>
       <div>
         {answers[0].label}
         <input
@@ -68,7 +69,8 @@ Question.propTypes = {
   verdict: PropTypes.shape().isRequired,
   setVerdict: PropTypes.func.isRequired,
   resetVerdict: PropTypes.func.isRequired,
-  resetQuestion: PropTypes.func.isRequired
+  resetQuestion: PropTypes.func.isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
 export default Question;

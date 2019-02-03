@@ -76,10 +76,12 @@ const NextButton = ({
   setQuestion,
   setVerdict,
   outcomes,
-  resetQuestion
+  resetQuestion,
+  classes
 }) => {
   return (
     <button
+      className={classes.button}
       type='button'
       disabled={selectedAnswer == null}
       onClick={() =>
@@ -112,7 +114,8 @@ NextButton.propTypes = {
   setQuestion: PropTypes.func.isRequired,
   verdict: PropTypes.shape().isRequired,
   setVerdict: PropTypes.func.isRequired,
-  resetQuestion: PropTypes.func.isRequired
+  resetQuestion: PropTypes.func.isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
 export default NextButton;

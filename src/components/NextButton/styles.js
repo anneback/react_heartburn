@@ -1,5 +1,6 @@
 export default {
+  '@import': 'url("https://fonts.googleapis.com/css?family=Montserrat")',
   button: {
-    fontFamily: 'Montserrat, Arial, sans-serif'
+    fontFamily: 'Montserrat, sans-serif'
   }
 };
