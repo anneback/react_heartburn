@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { NextButton } from '..';
+import { AnswerButton } from '..';
 
 const Question = ({
   currentQuestion: { answers, question_text, next },
@@ -20,8 +21,12 @@ const Question = ({
   classes
 }) => {
   return (
-    <div>
+    <div className={classes.questionContainer}>
       <div className={classes.text}>{question_text}</div>
+      <div className={classes.buttonContainer}>
+        <AnswerButton answer={answers[0]} />
+        <AnswerButton answer={answers[1]} />
+      </div>
       <div>
         {answers[0].label}
         <input

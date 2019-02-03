@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import api from './api/response.json';
 
 import { Question, Verdict } from './components';
-import ducks from './ducks';
-import './App.css';
 
 class App extends React.Component {
   init() {
@@ -27,7 +26,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { score, initDone, verdict } = this.props;
+    const { score, initDone, verdict, classes } = this.props;
     let displayed;
     if (!initDone) {
       displayed = <>Loading...</>;
@@ -37,41 +36,22 @@ class App extends React.Component {
       displayed = <Question {...this.props} />;
     }
     return (
-      <div className='App'>
-        <div>SCORE: {score}</div>
-        <header className='App-header'>{displayed}</header>
+      <div className={classes.root}>
+        <div className={classes.container}>
+          <div className={classes.title}>Heartburn Checker</div>
+          <div>{displayed}</div>
+          <div>SCORE: {score}</div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    questions: ducks.selectors.getQuestions(state),
-    outcomes: ducks.selectors.getOutcomes(state),
-    score: ducks.selectors.getScore(state),
-    currentQuestion: ducks.selectors.getCurrentQuestion(state),
-    initDone: ducks.selectors.getInitDone(state),
-    selectedAnswer: ducks.selectors.getSelectedAnswer(state),
-    verdict: ducks.selectors.getVerdict(state),
-    refresh: ducks.selectors.getRefresh(state)
-  };
+App.propTypes = {
+  score: PropTypes.number.isRequired,
+  initDone: PropTypes.bool.isRequired,
+  verdict: PropTypes.shape().isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
-const mapDispatchToProps = {
-  getData: ducks.actions.getData,
-  setScore: ducks.actions.setScore,
-  setQuestion: ducks.actions.setQuestion,
-  setInitDone: ducks.actions.setInitDone,
-  setAnswer: ducks.actions.setAnswer,
-  resetAnswer: ducks.actions.resetAnswer,
-  setVerdict: ducks.actions.setVerdict,
-  resetVerdict: ducks.actions.resetVerdict,
-  resetQuestion: ducks.actions.resetQuestion,
-  resetAll: ducks.actions.resetAll
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

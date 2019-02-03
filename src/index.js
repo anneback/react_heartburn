@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
+
 import App from './App';
 import ducks from './ducks';
-import * as serviceWorker from './serviceWorker';
+import styles from './styles';
+import injectSheet from 'react-jss';
 
 const reducer = combineReducers({ ...ducks.reducer });
 
@@ -17,9 +20,41 @@ const store = createStore(
   )
 );
 
+const mapStateToProps = state => ({
+  questions: ducks.selectors.getQuestions(state),
+  outcomes: ducks.selectors.getOutcomes(state),
+  score: ducks.selectors.getScore(state),
+  currentQuestion: ducks.selectors.getCurrentQuestion(state),
+  initDone: ducks.selectors.getInitDone(state),
+  selectedAnswer: ducks.selectors.getSelectedAnswer(state),
+  verdict: ducks.selectors.getVerdict(state),
+  refresh: ducks.selectors.getRefresh(state)
+});
+
+const mapDispatchToProps = {
+  getData: ducks.actions.getData,
+  setScore: ducks.actions.setScore,
+  setQuestion: ducks.actions.setQuestion,
+  setInitDone: ducks.actions.setInitDone,
+  setAnswer: ducks.actions.setAnswer,
+  resetAnswer: ducks.actions.resetAnswer,
+  setVerdict: ducks.actions.setVerdict,
+  resetVerdict: ducks.actions.resetVerdict,
+  resetQuestion: ducks.actions.resetQuestion,
+  resetAll: ducks.actions.resetAll
+};
+
+const Enhanced = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  injectSheet(styles)
+)(App);
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Enhanced />
   </Provider>,
   document.getElementById('root')
 );

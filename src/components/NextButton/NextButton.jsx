@@ -99,7 +99,10 @@ const NextButton = ({
         )
       }
     >
-      Next
+      <div className={classes.buttonTextContainer}>
+        <div className={classes.buttonText}>Next</div>
+        <div className={classes.buttonArrow}>&#8250;</div>
+      </div>
     </button>
   );
 };
