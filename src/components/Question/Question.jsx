@@ -21,6 +21,7 @@ const Question = ({
   if (!currentQuestion) {
     return null;
   }
+
   const { question_text, answers, next } = currentQuestion;
   return (
     <div className={classes.questionContainer}>

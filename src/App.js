@@ -5,12 +5,12 @@ import api from './api/response.json';
 
 import { Question, Verdict } from './components';
 class App extends React.Component {
-  init() {
+  init = () => {
     const { getData, setQuestion, setInitDone } = this.props;
     const response = getData(api).payload;
     setQuestion(response.questions[0]);
     setInitDone();
-  }
+  };
 
   componentDidMount() {
     this.init();
@@ -48,6 +48,8 @@ class App extends React.Component {
 App.propTypes = {
   initDone: PropTypes.bool.isRequired,
   verdict: PropTypes.shape(),
+  refresh: PropTypes.bool.isRequired,
+  resetAll: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired
 };
 

@@ -24,10 +24,10 @@ const nextOnClick = (
   setQuestion,
   resetAnswer,
   setVerdict,
-  outcomesList,
-  resetQuestion
+  outcomesList
 ) => {
   const { id: selectedAnswerId, score } = selectedAnswer;
+
   if (nextList.length > 1 && isNextOutcome(nextList)) {
     let outcomeQuestion;
     // Next step is an outcome
@@ -41,7 +41,6 @@ const nextOnClick = (
     const verdict = getOutcomeFromList(outcomesList, outcomeQuestion.outcome);
     setVerdict(verdict);
     resetAnswer();
-    //resetQuestion();
   } else if (nextList.length > 1 && !isNextOutcome(nextList)) {
     // Has multiple choices, like the first question in the list
     const multiQuestion = nextList.filter(
@@ -66,6 +65,7 @@ const nextOnClick = (
     setQuestion(nextQuestion);
   }
 };
+
 const NextButton = ({
   questions,
   next,
