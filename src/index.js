@@ -21,26 +21,15 @@ const store = createStore(
 );
 
 const mapStateToProps = state => ({
-  questions: ducks.selectors.getQuestions(state),
-  outcomes: ducks.selectors.getOutcomes(state),
-  score: ducks.selectors.getScore(state),
-  currentQuestion: ducks.selectors.getCurrentQuestion(state),
   initDone: ducks.selectors.getInitDone(state),
-  selectedAnswer: ducks.selectors.getSelectedAnswer(state),
   verdict: ducks.selectors.getVerdict(state),
   refresh: ducks.selectors.getRefresh(state)
 });
 
 const mapDispatchToProps = {
   getData: ducks.actions.getData,
-  setScore: ducks.actions.setScore,
   setQuestion: ducks.actions.setQuestion,
   setInitDone: ducks.actions.setInitDone,
-  setAnswer: ducks.actions.setAnswer,
-  resetAnswer: ducks.actions.resetAnswer,
-  setVerdict: ducks.actions.setVerdict,
-  resetVerdict: ducks.actions.resetVerdict,
-  resetQuestion: ducks.actions.resetQuestion,
   resetAll: ducks.actions.resetAll
 };
 

@@ -5,41 +5,32 @@ import { NextButton } from '..';
 import { AnswerButton } from '..';
 
 const Question = ({
-  currentQuestion: { answers, question_text, next },
+  currentQuestion,
   verdict,
   questions,
   score: totalScore,
-  setAnswer,
   setScore,
   setQuestion,
   selectedAnswer,
   resetAnswer,
   setVerdict,
-  resetVerdict,
   outcomes,
   resetQuestion,
   classes
 }) => {
+  if (!currentQuestion) {
+    return null;
+  }
+  const { question_text, answers, next } = currentQuestion;
   return (
     <div className={classes.questionContainer}>
-      <div className={classes.text}>{question_text}</div>
-      <div className={classes.buttonContainer}>
-        <AnswerButton answer={answers[0]} />
-        <AnswerButton answer={answers[1]} />
+      <div className={classes.textContainer}>
+        <div className={classes.text}>{question_text}</div>
+        <div className={classes.line} />
       </div>
-      <div>
-        {answers[0].label}
-        <input
-          type='radio'
-          name='answer'
-          onClick={() => setAnswer(answers[0])}
-        />
-        {answers[1].label}
-        <input
-          type='radio'
-          name='answer'
-          onClick={() => setAnswer(answers[1])}
-        />
+      <div className={classes.buttonContainer}>
+        <AnswerButton answer={answers[0]} selectedAnswer={selectedAnswer} />
+        <AnswerButton answer={answers[1]} selectedAnswer={selectedAnswer} />
       </div>
       {verdict !== null ? (
         <button type='button'>Book meeting</button>
@@ -63,19 +54,22 @@ const Question = ({
 };
 
 Question.propTypes = {
-  question_text: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  next: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currentQuestion: PropTypes.shape(),
   outcomes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  selectedAnswer: PropTypes.shape().isRequired,
+  selectedAnswer: PropTypes.shape(),
   setScore: PropTypes.func.isRequired,
   setQuestion: PropTypes.func.isRequired,
   resetAnswer: PropTypes.func.isRequired,
-  verdict: PropTypes.shape().isRequired,
+  verdict: PropTypes.shape(),
   setVerdict: PropTypes.func.isRequired,
-  resetVerdict: PropTypes.func.isRequired,
   resetQuestion: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired
+};
+
+Question.default = {
+  currentQuestion: null,
+  selectedAnswer: null,
+  verdict: null
 };
 
 export default Question;

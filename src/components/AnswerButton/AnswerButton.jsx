@@ -1,22 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-const onClickHandler = (setAnswer, answer) => {
-  setAnswer(answer);
-};
+class AnswerButton extends React.Component {
+  onClickHandler = (setAnswer, answer) => {
+    setAnswer(answer);
+  };
 
-const AnswerButton = ({ setAnswer, answer, classes }) => (
-  <div
-    className={classes.button}
-    onClick={() => onClickHandler(setAnswer, answer)}
-  >
-    {answer.label}
-  </div>
-);
+  render() {
+    const { setAnswer, answer, selectedAnswer, classes } = this.props;
+    return (
+      <div
+        name={answer.label}
+        className={cn(classes.button, {
+          active: selectedAnswer !== null && selectedAnswer.id === answer.id
+        })}
+        onClick={() => this.onClickHandler(setAnswer, answer)}
+      >
+        {answer.label}
+      </div>
+    );
+  }
+}
 
 AnswerButton.propTypes = {
   setAnswer: PropTypes.func.isRequired,
+  answer: PropTypes.shape().isRequired,
+  selectedAnswer: PropTypes.shape(),
   classes: PropTypes.shape().isRequired
+};
+
+AnswerButton.defaultProps = {
+  selectedAnswer: null
 };
 
 export default AnswerButton;

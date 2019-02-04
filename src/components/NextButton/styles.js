@@ -1,11 +1,14 @@
 export default {
-  '@import': 'url("https://fonts.googleapis.com/css?family=Montserrat")',
   button: {
     height: 40,
     borderRadius: 5,
     backgroundColor: '#6accba',
     color: '#ffffff',
-    border: '1px solid #e5e5e5'
+    border: '1px solid #CFCFD5',
+    cursor: 'pointer',
+    '&:disabled': {
+      backgroundColor: '#CFCFD5'
+    }
   },
   buttonText: {
     display: 'flex',

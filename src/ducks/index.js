@@ -44,8 +44,6 @@ const rootReducer = (state = defaultState, { type, payload }) => {
       return { ...state, answer: defaultState.answer };
     case types.setVerdict:
       return { ...state, verdict: payload };
-    case types.resetVerdict:
-      return { ...state, verdict: defaultState.verdict };
     case types.resetQuestion:
       return { ...state, verdict: defaultState.currentQuestion };
     case types.setRefresh:

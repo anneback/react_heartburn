@@ -9,7 +9,12 @@ export default {
     height: 40,
     width: 120,
     borderRadius: 100,
-    color: '#0E2C38',
-    border: '1px solid #e5e5e5'
+    color: '#0e2c38',
+    border: '1px solid #CFCFD5',
+    cursor: 'pointer',
+    '&.active': {
+      backgroundColor: '#6accba',
+      color: '#fff'
+    }
   }
 };

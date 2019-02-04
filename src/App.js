@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import api from './api/response.json';
 
 import { Question, Verdict } from './components';
-
 class App extends React.Component {
   init() {
     const { getData, setQuestion, setInitDone } = this.props;
@@ -26,7 +25,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { score, initDone, verdict, classes } = this.props;
+    const { initDone, verdict, classes } = this.props;
     let displayed;
     if (!initDone) {
       displayed = <>Loading...</>;
@@ -40,7 +39,6 @@ class App extends React.Component {
         <div className={classes.container}>
           <div className={classes.title}>Heartburn Checker</div>
           <div>{displayed}</div>
-          <div>SCORE: {score}</div>
         </div>
       </div>
     );
@@ -48,10 +46,13 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  score: PropTypes.number.isRequired,
   initDone: PropTypes.bool.isRequired,
-  verdict: PropTypes.shape().isRequired,
+  verdict: PropTypes.shape(),
   classes: PropTypes.shape().isRequired
+};
+
+App.defaultProps = {
+  verdict: null
 };
 
 export default App;

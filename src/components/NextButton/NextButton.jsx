@@ -108,17 +108,22 @@ const NextButton = ({
 };
 
 NextButton.propTypes = {
-  selectedAnswer: PropTypes.shape().isRequired,
+  selectedAnswer: PropTypes.shape(),
   next: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   totalScore: PropTypes.number.isRequired,
   outcomes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setScore: PropTypes.func.isRequired,
   setQuestion: PropTypes.func.isRequired,
-  verdict: PropTypes.shape().isRequired,
+  verdict: PropTypes.shape(),
   setVerdict: PropTypes.func.isRequired,
   resetQuestion: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired
+};
+
+NextButton.defaultProps = {
+  selectedAnswer: null,
+  verdict: null
 };
 
 export default NextButton;
