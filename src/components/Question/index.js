@@ -18,11 +18,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getData: ducks.actions.getData,
-  setScore: ducks.actions.setScore,
-  setAnswer: ducks.actions.setAnswer,
-  resetAnswer: ducks.actions.resetAnswer,
-  setVerdict: ducks.actions.setVerdict,
-  resetQuestion: ducks.actions.resetQuestion,
   resetAll: ducks.actions.resetAll
 };
 

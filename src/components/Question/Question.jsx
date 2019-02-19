@@ -9,13 +9,8 @@ const Question = ({
   verdict,
   questions,
   score: totalScore,
-  setScore,
-  setQuestion,
   selectedAnswer,
-  resetAnswer,
-  setVerdict,
   outcomes,
-  resetQuestion,
   classes
 }) => {
   if (!currentQuestion) {
@@ -40,14 +35,9 @@ const Question = ({
           next={next}
           totalScore={totalScore}
           questions={questions}
-          setScore={setScore}
-          setQuestion={setQuestion}
           selectedAnswer={selectedAnswer}
-          resetAnswer={resetAnswer}
           verdict={verdict}
-          setVerdict={setVerdict}
           outcomes={outcomes}
-          resetQuestion={resetQuestion}
         />
       )}
     </div>
@@ -58,12 +48,7 @@ Question.propTypes = {
   currentQuestion: PropTypes.shape(),
   outcomes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   selectedAnswer: PropTypes.shape(),
-  setScore: PropTypes.func.isRequired,
-  setQuestion: PropTypes.func.isRequired,
-  resetAnswer: PropTypes.func.isRequired,
   verdict: PropTypes.shape(),
-  setVerdict: PropTypes.func.isRequired,
-  resetQuestion: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired
 };
 

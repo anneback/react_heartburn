@@ -20,11 +20,11 @@ const nextOnClick = (
   nextList,
   selectedAnswer,
   totalScore,
+  outcomesList,
   setScore,
   setQuestion,
   resetAnswer,
-  setVerdict,
-  outcomesList
+  setVerdict
 ) => {
   const { id: selectedAnswerId, score } = selectedAnswer;
 
@@ -51,7 +51,7 @@ const nextOnClick = (
       questions,
       multiQuestion.next_question
     );
-    setScore(totalScore + score);
+    setScore();
     resetAnswer();
     setQuestion(nextQuestion);
   } else {
@@ -67,45 +67,41 @@ const nextOnClick = (
 };
 
 const NextButton = ({
-  questions,
+  selectedAnswer,
   next,
   totalScore,
-  selectedAnswer,
+  outcomes,
+  questions,
   resetAnswer,
   setScore,
   setQuestion,
   setVerdict,
-  outcomes,
-  resetQuestion,
   classes
-}) => {
-  return (
-    <button
-      className={classes.button}
-      type='button'
-      disabled={selectedAnswer == null}
-      onClick={() =>
-        nextOnClick(
-          questions,
-          next,
-          selectedAnswer,
-          totalScore,
-          setScore,
-          setQuestion,
-          resetAnswer,
-          setVerdict,
-          outcomes,
-          resetQuestion
-        )
-      }
-    >
-      <div className={classes.buttonTextContainer}>
-        <div className={classes.buttonText}>Next</div>
-        <div className={classes.buttonArrow}>&#8250;</div>
-      </div>
-    </button>
-  );
-};
+}) => (
+  <button
+    className={classes.button}
+    type='button'
+    disabled={selectedAnswer == null}
+    onClick={() =>
+      nextOnClick(
+        questions,
+        next,
+        selectedAnswer,
+        totalScore,
+        outcomes,
+        setScore,
+        setQuestion,
+        resetAnswer,
+        setVerdict
+      )
+    }
+  >
+    <div className={classes.buttonTextContainer}>
+      <div className={classes.buttonText}>Next</div>
+      <div className={classes.buttonArrow}>&#8250;</div>
+    </div>
+  </button>
+);
 
 NextButton.propTypes = {
   selectedAnswer: PropTypes.shape(),
@@ -113,17 +109,15 @@ NextButton.propTypes = {
   totalScore: PropTypes.number.isRequired,
   outcomes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  resetAnswer: PropTypes.func.isRequired,
   setScore: PropTypes.func.isRequired,
   setQuestion: PropTypes.func.isRequired,
-  verdict: PropTypes.shape(),
   setVerdict: PropTypes.func.isRequired,
-  resetQuestion: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired
 };
 
 NextButton.defaultProps = {
-  selectedAnswer: null,
-  verdict: null
+  selectedAnswer: null
 };
 
 export default NextButton;
