@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const isNextOutcome = nextList =>
-  nextList.some(next => Object.keys(next).some(key => key === 'outcome'));
+  nextList.some(next => Object.keys(next).some(key => key === "outcome"));
 
 const getQuestionFromList = (questions, nextQuestionId) => {
-  return questions.filter(question => {
+  return questions.find(question => {
     return question.id === nextQuestionId;
-  })[0];
+  });
 };
 
 const getOutcomeFromList = (outcomes, outcomeId) =>
-  outcomes.filter(outcome => {
+  outcomes.find(outcome => {
     return outcome.id === outcomeId;
-  })[0];
+  });
 
 const nextOnClick = (
   questions,
@@ -43,15 +43,15 @@ const nextOnClick = (
     resetAnswer();
   } else if (nextList.length > 1 && !isNextOutcome(nextList)) {
     // Has multiple choices, like the first question in the list
-    const multiQuestion = nextList.filter(
+    const multiQuestion = nextList.find(
       next => next.answered === selectedAnswerId
-    )[0];
+    );
 
     const nextQuestion = getQuestionFromList(
       questions,
       multiQuestion.next_question
     );
-    setScore();
+    setScore(totalScore + score);
     resetAnswer();
     setQuestion(nextQuestion);
   } else {
@@ -80,7 +80,7 @@ const NextButton = ({
 }) => (
   <button
     className={classes.button}
-    type='button'
+    type="button"
     disabled={selectedAnswer == null}
     onClick={() =>
       nextOnClick(

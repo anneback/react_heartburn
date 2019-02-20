@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider, connect } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { Provider, connect } from "react-redux";
+import * as serviceWorker from "./serviceWorker";
 
-import App from './App';
-import ducks from './ducks';
-import styles from './styles';
-import injectSheet from 'react-jss';
+import App from "./App";
+import ducks from "./ducks";
+import styles from "./styles";
+import injectSheet from "react-jss";
 
 const reducer = combineReducers({ ...ducks.reducer });
 
@@ -16,6 +16,7 @@ const store = createStore(
   reducer,
   compose(
     applyMiddleware(thunk),
+    // comment out this if you don't have redux devtool in browser.
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
@@ -45,7 +46,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Enhanced />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
